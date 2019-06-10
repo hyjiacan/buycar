@@ -8,8 +8,7 @@
                 验车助手
             </div>
             <div class="info">
-                通过 {{pass.length}} 项 , 有问题 {{fail.length}} 项 , 剩下 {{option.length - pass.length - fail.length}} 项 / 共
-                {{option.length}} 项
+                通过{{pass.length}}项, 有问题{{fail.length}}项 , 剩下{{option.length - pass.length - fail.length}}项 / 共{{option.length}}项
             </div>
         </div>
         <router-view/>
@@ -96,6 +95,6 @@ export default {
     float: right;
     color: #fdffc6;
     font-size: 12px;
-    padding: 10px;
+    padding: 10px 0;
 }
 </style>
