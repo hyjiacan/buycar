@@ -1,29 +1,110 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <div class="header">
+            <div class="btn-back" v-if="isResultPage" @click="$router.back()">
+                返回
+            </div>
+            <div class="title">
+                验车助手
+            </div>
+            <div class="tip">
+                提车时的验车助手
+            </div>
+            <div class="info">
+                通过 {{pass.length}} 项 , 有问题 {{fail.length}} 项 , 剩下 {{option.length - pass.length - fail.length}} 项 / 共
+                {{option.length}} 项
+            </div>
+        </div>
+        <router-view/>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import option from '@/assets/option.json'
+import {mapState} from "vuex";
+
+export default {
+    name: "App",
+    data() {
+        return {
+            option
+        }
+    },
+    computed: {
+        ...mapState({
+            pass: state => state.pass,
+            fail: state => state.fail
+        }),
+        isResultPage() {
+            return this.$route.path === '/result'
+        }
     }
-  }
+}
+
+</script>
+
+<style lang="less" scoped>
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.header {
+    background-color: #2c3e50;
+    position: absolute;
+    top: 0;
+    left: 0;;
+    right: 0;
+    height: 40px;
+    z-index: 2;
+
+    &:after {
+        content: ' ';
+        display: block;
+        clear: both;
+    }
+}
+
+.btn-back {
+    float: left;
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-right: 1px solid #b0b0b3;
+    color: #f8f6fa;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 18px;
+    float: left;
+    color: #FFF;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.tip {
+    float: left;
+    font-size: 14px;
+    color: #eeeeee;
+    padding-top: 13px;
+}
+
+.info {
+    float: right;
+    color: #e2ae15;
+    font-size: 12px;
+    padding: 10px;
 }
 </style>
