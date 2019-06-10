@@ -1,12 +1,12 @@
 <template>
     <div class="result">
         <h3>有问题项 ({{fail.length}}/{{option.length}})</h3>
-        <ul v-if="fail.length">
+        <ul v-if="fail.length" class="fail-list">
             <li v-for="idx in fail" :key="idx">{{option[idx].key}}</li>
         </ul>
         <div class="empty" v-else>无</div>
         <h3>通过项 ({{pass.length}}/{{option.length}})</h3>
-        <ul v-if="pass.length">
+        <ul v-if="pass.length" class="pass-list">
             <li v-for="idx in pass" :key="idx">{{option[idx].key}}</li>
         </ul>
         <div class="empty" v-else>无</div>
@@ -38,14 +38,14 @@ export default {
             let remain = []
             let temp = {}
             option.forEach((item, i) => {
-                temp[i] = option[i]
+                temp[i] = item
             })
 
-            this.pass.forEach((item, i) => {
+            this.pass.forEach(i => {
                 delete temp[i]
             })
 
-            this.fail.forEach((item, i) => {
+            this.fail.forEach(i => {
                 delete temp[i]
             })
 
@@ -68,10 +68,10 @@ export default {
         } catch (e) {
             return
         }
-        cache.pass.forEach((item, i) => {
+        cache.pass.forEach(i => {
             this.$store.commit('passItem', i)
         })
-        cache.fail.forEach((item, i) => {
+        cache.fail.forEach(i => {
             this.$store.commit('failItem', i)
         })
     }
@@ -98,5 +98,13 @@ li {
 .empty {
     padding-left: 20px;
     color: #AAA;
+}
+
+.fail-list {
+    color: #b30000;
+}
+
+.pass-list {
+    color: #006e00;
 }
 </style>

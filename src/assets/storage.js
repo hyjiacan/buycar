@@ -18,7 +18,8 @@ function getCookie(name) {
     if (end === -1) {
         end = document.cookie.length
     }
-    return unescape(document.cookie.substring(start, end))
+    let value = unescape(document.cookie.substring(start, end))
+    return value
 }
 
 export default {

@@ -37,7 +37,7 @@ export default {
                 pass: [],
                 fail: []
             }))
-            storage.setItem('result', {})
+            this.$store.commit('reset')
         },
         onComplete() {
             // 保存结果
@@ -59,14 +59,14 @@ export default {
             return
         }
         this.hasCache = true
-        cache.pass.forEach((item, i) => {
+        cache.pass.forEach(i => {
             this.$store.commit('passItem', i)
             this.$set(this.option, i, {
                 ...this.option[i],
                 status: 1
             })
         })
-        cache.fail.forEach((item, i) => {
+        cache.fail.forEach(i => {
             this.$store.commit('failItem', i)
             this.$set(this.option, i, {
                 ...this.option[i],

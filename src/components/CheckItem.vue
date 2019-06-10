@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import storage from "../assets/storage";
+
 export default {
     name: "CheckItem",
     props: {
@@ -47,6 +49,11 @@ export default {
             } else if (status === -1) {
                 this.$store.commit('failItem', this.index - 1)
             }
+            // 保存结果
+            storage.setItem('result', JSON.stringify({
+                pass: this.$store.state.pass,
+                fail: this.$store.state.fail
+            }))
         }
     }
 }
@@ -66,7 +73,7 @@ export default {
 }
 
 .pass {
-    color: #b0b0b3;
+    color: rgba(81, 179, 102, 0.86);
 }
 
 .fail {
