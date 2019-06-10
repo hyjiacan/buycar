@@ -1,5 +1,5 @@
 <template>
-    <div class="check-item" :class="{'pass': status === 1, 'fail': status === -1}">
+    <div class="check-item" :class="{'pass': itemStatus === 1, 'fail': itemStatus === -1}">
         <div class="index">{{index}}</div>
         <div class="info">
             <div class="name">{{data.key}}</div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import storage from "../assets/storage";
+import {mapState} from "vuex";
 
 export default {
     name: "CheckItem",
@@ -25,35 +25,33 @@ export default {
             type: Object
         }
     },
-    data() {
-        return {
-            // 0: 未标记
-            // 1: 通过
-            // -1: 未通过
-            status: 0
-        }
-    },
-    mounted() {
-        this.status = this.data.status
-    },
-    watch: {
-        data(v) {
-            this.status = v.status
-        }
-    },
     methods: {
         changeStatus(status) {
-            this.status = status
+            let index = this.index - 1
             if (status === 1) {
-                this.$store.commit('passItem', this.index - 1)
+                this.$store.commit('passItem', index)
             } else if (status === -1) {
-                this.$store.commit('failItem', this.index - 1)
+                this.$store.commit('failItem', index)
             }
-            // 保存结果
-            storage.setItem('result', JSON.stringify({
-                pass: this.$store.state.pass,
-                fail: this.$store.state.fail
-            }))
+        }
+    },
+    computed: {
+        ...mapState({
+            pass: state => state.pass,
+            fail: state => state.fail
+        }),
+        // 0: 未标记
+        // 1: 通过
+        // -1: 未通过
+        itemStatus() {
+            if (this.pass.indexOf(this.index - 1) !== -1) {
+                return 1
+            }
+
+            if (this.fail.indexOf(this.index - 1) !== -1) {
+                return -1
+            }
+            return 0
         }
     }
 }

@@ -11,7 +11,6 @@
 <script>
 import CheckItem from '@/components/CheckItem.vue'
 import option from '@/assets/option.json'
-import storage from "../assets/storage";
 
 export default {
     name: 'home',
@@ -19,13 +18,8 @@ export default {
         CheckItem
     },
     data() {
-        let items = option.map(i => {
-            i.status = 0
-            return i
-        })
         return {
-            option: items,
-            hasCache: false
+            option
         }
     },
     methods: {
@@ -33,46 +27,11 @@ export default {
             if (!window.confirm('此操作不可恢复，确定要清除检查状态吗？')) {
                 return
             }
-            storage.setItem('result', JSON.stringify({
-                pass: [],
-                fail: []
-            }))
             this.$store.commit('reset')
         },
         onComplete() {
-            // 保存结果
-            storage.setItem('result', JSON.stringify({
-                pass: this.$store.state.pass,
-                fail: this.$store.state.fail
-            }))
             this.$router.push('result')
         }
-    },
-    mounted() {
-        let cache = storage.getItem('result')
-        if (!cache) {
-            return
-        }
-        try {
-            cache = JSON.parse(cache)
-        } catch (e) {
-            return
-        }
-        this.hasCache = true
-        cache.pass.forEach(i => {
-            this.$store.commit('passItem', i)
-            this.$set(this.option, i, {
-                ...this.option[i],
-                status: 1
-            })
-        })
-        cache.fail.forEach(i => {
-            this.$store.commit('failItem', i)
-            this.$set(this.option, i, {
-                ...this.option[i],
-                status: -1
-            })
-        })
     }
 }
 </script>

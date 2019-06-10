@@ -21,7 +21,6 @@
 <script>
 import option from '@/assets/option.json'
 import {mapState} from "vuex";
-import storage from "../assets/storage";
 
 export default {
     data() {
@@ -57,23 +56,6 @@ export default {
             }
             return remain
         }
-    },
-    mounted() {
-        let cache = storage.getItem('result')
-        if (!cache) {
-            return
-        }
-        try {
-            cache = JSON.parse(cache)
-        } catch (e) {
-            return
-        }
-        cache.pass.forEach(i => {
-            this.$store.commit('passItem', i)
-        })
-        cache.fail.forEach(i => {
-            this.$store.commit('failItem', i)
-        })
     }
 }
 </script>
