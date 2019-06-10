@@ -1,9 +1,9 @@
 <template>
     <div class="home">
         <check-item :data="item" v-for="(item, i) in option" :key="item.key" :index="i + 1"></check-item>
-
         <div class="footer">
-            <button @click="onComplete">完成</button>
+            <button class="btn-reset" @click="onReset">清除状态</button>
+            <button class="btn-submit" @click="onComplete">完成</button>
         </div>
     </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import CheckItem from '@/components/CheckItem.vue'
 import option from '@/assets/option.json'
+import storage from "../assets/storage";
 
 export default {
     name: 'home',
@@ -18,14 +19,29 @@ export default {
         CheckItem
     },
     data() {
+        let items = option.map(i => {
+            i.status = 0
+            return i
+        })
         return {
-            option
+            option: items,
+            hasCache: false
         }
     },
     methods: {
+        onReset() {
+            if (!window.confirm('此操作不可恢复，确定要清除检查状态吗？')) {
+                return
+            }
+            storage.setItem('result', JSON.stringify({
+                pass: [],
+                fail: []
+            }))
+            storage.setItem('result', {})
+        },
         onComplete() {
             // 保存结果
-            localStorage.setItem('result', JSON.stringify({
+            storage.setItem('result', JSON.stringify({
                 pass: this.$store.state.pass,
                 fail: this.$store.state.fail
             }))
@@ -33,7 +49,7 @@ export default {
         }
     },
     mounted() {
-        let cache = localStorage.getItem('result')
+        let cache = storage.getItem('result')
         if (!cache) {
             return
         }
@@ -42,11 +58,20 @@ export default {
         } catch (e) {
             return
         }
+        this.hasCache = true
         cache.pass.forEach((item, i) => {
             this.$store.commit('passItem', i)
+            this.$set(this.option, i, {
+                ...this.option[i],
+                status: 1
+            })
         })
         cache.fail.forEach((item, i) => {
             this.$store.commit('failItem', i)
+            this.$set(this.option, i, {
+                ...this.option[i],
+                status: -1
+            })
         })
     }
 }
@@ -68,16 +93,27 @@ export default {
     text-align: center;
 
     button {
+        margin: 0 2px;
         border: none;
-        background-color: darkgreen;
         color: #FFF;
-        width: 120px;
+        width: 150px;
         height: 40px;
+    }
+
+    .btn-submit {
+        background-color: #008d00;
 
         &:hover, &:active {
-            background-color: #00a700;
+            background-color: #006e00;
         }
     }
 
+    .btn-reset {
+        background-color: #c92b10;
+
+        &:hover, &:active {
+            background-color: #a7240d;
+        }
+    }
 }
 </style>

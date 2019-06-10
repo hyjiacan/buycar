@@ -31,6 +31,14 @@ export default {
             status: 0
         }
     },
+    mounted() {
+        this.status = this.data.status
+    },
+    watch: {
+        data(v) {
+            this.status = v.status
+        }
+    },
     methods: {
         changeStatus(status) {
             this.status = status
@@ -66,6 +74,12 @@ export default {
 
     .name {
         text-decoration: line-through;
+    }
+}
+
+.pass, .fail {
+    .btn-fail {
+        background-color: rgba(191, 32, 30, 0.37);
     }
 }
 

@@ -1,29 +1,27 @@
 <template>
     <div class="result">
-        <template v-if="fail.length">
-            <h3>有问题项 ({{fail.length}}/{{option.length}})</h3>
-            <ul>
-                <li v-for="idx in fail" :key="idx">{{option[idx].key}}</li>
-            </ul>
-        </template>
-        <template v-if="pass.length">
-            <h3>通过项 ({{pass.length}}/{{option.length}})</h3>
-            <ul>
-                <li v-for="idx in pass" :key="idx">{{option[idx].key}}</li>
-            </ul>
-        </template>
-        <template v-if="remain.length">
-            <h3>未查项 ({{remain.length}}/{{option.length}})</h3>
-            <ul>
-                <li v-for="idx in remain" :key="idx">{{option[idx].key}}</li>
-            </ul>
-        </template>
+        <h3>有问题项 ({{fail.length}}/{{option.length}})</h3>
+        <ul v-if="fail.length">
+            <li v-for="idx in fail" :key="idx">{{option[idx].key}}</li>
+        </ul>
+        <div class="empty" v-else>无</div>
+        <h3>通过项 ({{pass.length}}/{{option.length}})</h3>
+        <ul v-if="pass.length">
+            <li v-for="idx in pass" :key="idx">{{option[idx].key}}</li>
+        </ul>
+        <div class="empty" v-else>无</div>
+        <h3>未检查项 ({{remain.length}}/{{option.length}})</h3>
+        <ul v-if="remain.length">
+            <li v-for="idx in remain" :key="idx">{{option[idx].key}}</li>
+        </ul>
+        <div class="empty" v-else>无</div>
     </div>
 </template>
 
 <script>
 import option from '@/assets/option.json'
 import {mapState} from "vuex";
+import storage from "../assets/storage";
 
 export default {
     data() {
@@ -61,8 +59,7 @@ export default {
         }
     },
     mounted() {
-        cache = JSON.parse(cache)
-        let cache = localStorage.getItem('result')
+        let cache = storage.getItem('result')
         if (!cache) {
             return
         }
@@ -96,5 +93,10 @@ export default {
 li {
     font-size: 12px;
     padding: 5px 0;
+}
+
+.empty {
+    padding-left: 20px;
+    color: #AAA;
 }
 </style>
