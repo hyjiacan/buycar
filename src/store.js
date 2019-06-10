@@ -50,6 +50,4 @@ const store = {
     actions: {}
 }
 
-console.log(store)
-
 export default new Vuex.Store(store)
