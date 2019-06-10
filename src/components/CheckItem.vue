@@ -6,8 +6,8 @@
             <div class="remark">{{data.remark}}</div>
         </div>
         <div class="buttons">
-            <button class="btn-pass" @click="changeStatus(1)">通过</button>
             <button class="btn-fail" @click="changeStatus(-1)">有问题</button>
+            <button class="btn-pass" @click="changeStatus(1)">通过</button>
         </div>
     </div>
 </template>
@@ -71,41 +71,42 @@ export default {
 
 .index {
     float: left;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 30px;
+    height: 80px;
+    line-height: 80px;
     text-align: center;
     background-color: #f0ecf1;
     color: #717171;
-    padding: 5px;
-    margin-right: 5px;
+    box-sizing: border-box;
 }
 
 .info {
-    float: left;
-    padding: 5px 0;
+    margin-left: 35px;
+    box-sizing: border-box;
 }
 
 .buttons {
     float: right;
     padding: 5px 0;
+    font-size: 12px;
 
     button {
         border: none;
-        width: 60px;
-        height: 40px;
+        width: 56px;
+        height: 32px;
         color: #FFF;
     }
 }
 
 .name {
     font-size: 16px;
-    padding: 2px;
+    padding: 0 2px 3px 2px;
     font-weight: bold;
 }
 
 .remark {
     font-size: 12px;
+    color: #828390;
 }
 
 .btn-pass {

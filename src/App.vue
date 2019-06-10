@@ -2,13 +2,10 @@
     <div id="app">
         <div class="header">
             <div class="btn-back" v-if="isResultPage" @click="$router.back()">
-                返回
+                &lt;&lt; 返回
             </div>
-            <div class="title">
+            <div class="title" v-else>
                 验车助手
-            </div>
-            <div class="tip">
-                提车时的验车助手
             </div>
             <div class="info">
                 通过 {{pass.length}} 项 , 有问题 {{fail.length}} 项 , 剩下 {{option.length - pass.length - fail.length}} 项 / 共
@@ -76,6 +73,7 @@ export default {
     width: 60px;
     height: 40px;
     text-align: center;
+    font-size: 14px;
     line-height: 40px;
     border-right: 1px solid #b0b0b3;
     color: #f8f6fa;
@@ -91,19 +89,12 @@ export default {
     float: left;
     color: #FFF;
     margin-right: 10px;
-    padding: 10px;
-}
-
-.tip {
-    float: left;
-    font-size: 14px;
-    color: #eeeeee;
-    padding-top: 13px;
+    padding: 8px;
 }
 
 .info {
     float: right;
-    color: #e2ae15;
+    color: #fdffc6;
     font-size: 12px;
     padding: 10px;
 }

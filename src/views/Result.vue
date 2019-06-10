@@ -66,6 +66,11 @@ export default {
         if (!cache) {
             return
         }
+        try {
+            cache = JSON.parse(cache)
+        } catch (e) {
+            return
+        }
         cache.pass.forEach((item, i) => {
             this.$store.commit('passItem', i)
         })
