@@ -8,7 +8,8 @@
                 验车助手
             </div>
             <div class="info">
-                通过 {{pass.length}} 项, 有问题 {{fail.length}} 项 , 剩下 {{option.length - pass.length - fail.length}} 项 / 共 {{option.length}} 项
+                通过 {{pass.length}} 项, 有问题 {{fail.length}} 项 , 剩下 {{option.length - pass.length - fail.length}} 项 / 共
+                {{option.length}} 项
             </div>
         </div>
         <router-view/>
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import option from '@/assets/option.json'
+import option from './assets/option.js'
 import {mapState} from "vuex";
 
 export default {

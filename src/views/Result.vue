@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import option from '@/assets/option.json'
+import option from '../assets/option.js'
 import {mapState} from "vuex";
 
 export default {

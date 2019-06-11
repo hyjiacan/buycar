@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import CheckItem from '@/components/CheckItem.vue'
-import option from '@/assets/option.json'
+import CheckItem from '../components/CheckItem.vue'
+import option from '../assets/option.js'
 
 export default {
     name: 'home',

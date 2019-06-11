@@ -6,4 +6,6 @@
 
 ## 更新检查项
 
-检查项使用`json`格式存放在文件 [src/assets/option.json](src/assets/option.json) 文件中。
+检查项使用`json`格式存放在文件 [public/option.json](public/option.json) 文件中。
+
+在添加新项时，始终应该添加到文件尾。

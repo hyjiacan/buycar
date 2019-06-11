@@ -118,7 +118,7 @@ export default {
 }
 
 .name {
-    font-size: 16px;
+    font-size: 14px;
     padding: 0 2px 3px 2px;
     font-weight: bold;
 }
